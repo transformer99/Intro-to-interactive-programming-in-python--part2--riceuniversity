@@ -1,0 +1,20 @@
+Spaceship - Code Clinic tips
+
+This page include helpful tips based on our experience in helping students in the "Code Clinic" (interactivepython@online.rice.edu). Be sure and take a look at these tips if you get stuck.
+Making your ship turn
+One of the first steps is making your ship turn. The logic that you should use is almost identical to that which you used in Pong to make the paddles move. You'll need to implement keyup and keydown handlers that use ship methods to set the angle_vel field in the ship class. Then your update method for the ship class will update the angle for ship based angle_vel.
+
+The case of the missing missile
+I've had several requests for help in getting missiles to spawn. Since the missile image is so tiny, it's easy to miss it being drawn in the upper left corner of your canvas. To make it easier to find, consider temporarily replacing it by the asteroid image (and asteroid size). Once you figure out where the missile is being drawn, your task in debugging your Sprite methods is much easier.
+
+Global vs. local for a_rock and a_missile
+I had one particular nasty bug that was sent to the Code Clinic that involved a missing missile. The particular student's implementation of the shoot() method for the Ship class spawned a new missile via something of the form
+
+a_missile = Sprite(...)
+This update to a_missile must be declared global in shoot() since we are creating a new reference to a new object. Note that we don't need to declare any references of the form a_missile.thrust = ... or such as global since we are only using a reference to the global object a_missile, not creating a new reference.
+
+Take care in naming fields and methods. 
+
+One error that can arise when working with classes is to give the same name to a field and a method that manipulates that field. For example, the Spaceship object should probably have a field called self.thrust. When you create methods that manipulate that field, don't chose a name like def thrust(self):. If you do, trying to evaluate the expression like my_ship.thrust(), will produce an error message of the form 'Bool object not callable' or such. 
+
+Instead, make your method names more descriptive like thrusters_on and thrusters_off. This will avoid the name conflict and help you and others to understand your code.
